@@ -1,0 +1,15 @@
+{
+  "name": "example-1",
+  "version": "1.0.0",
+  "description": "First example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.13.0",
+    "fluent-schema": "^0.10.0"
+  }
+}
