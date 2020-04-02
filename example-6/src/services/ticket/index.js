@@ -23,7 +23,8 @@ module.exports = async function(fastify, opts) {
   }, async function (request, reply) {
     const { id } = request.params;
     const result = await ticketsCollection.deleteOne({
-      _id: new ObjectId(id)
+      _id: new ObjectId(id),
+      username: request.user.username
     })
 
     if (result.deletedCount === 0) {
@@ -51,7 +52,9 @@ module.exports = async function(fastify, opts) {
       }
     }
   }, async function (request, reply) {
-    const tickets = await ticketsCollection.find({}).sort({
+    const tickets = await ticketsCollection.find({
+      username: request.user.username
+    }).sort({
       _id: -1 // new tickets first
     }).toArray()
 
@@ -77,7 +80,8 @@ module.exports = async function(fastify, opts) {
   }, async function (request, reply) {
     const { id } = request.params;
     const ticket = await ticketsCollection.findOne({
-      _id: new ObjectId(id)
+      _id: new ObjectId(id),
+      username: request.user.username
     })
 
     if (!ticket) {
@@ -105,7 +109,12 @@ module.exports = async function(fastify, opts) {
       }
     }
   }, async function (request, reply) {
-    const data = await ticketsCollection.insertOne(request.body)
+    const ticket = request.body
+    Object.assign(ticket, {
+      username: request.user.username
+    })
+
+    const data = await ticketsCollection.insertOne(ticket)
     const _id = data.ops[0]._id
 
     return Object.assign({
