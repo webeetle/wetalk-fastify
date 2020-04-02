@@ -45,6 +45,7 @@ module.exports = async function(fastify, opts) {
           .prop('_id', S.string())
           .prop('subject', S.string())
           .prop('body', S.string())
+          .prop('username', S.string())
           .prop('creation-date', S.string().format('date-time'))
         ),
         404: S.object()
@@ -72,6 +73,7 @@ module.exports = async function(fastify, opts) {
           .prop('_id', S.string())
           .prop('subject', S.string())
           .prop('body', S.string())
+          .prop('username', S.string())
           .prop('creation-date', S.string().format('date-time')),
         404: S.object()
           .prop('message', S.string())
@@ -105,6 +107,7 @@ module.exports = async function(fastify, opts) {
           .prop('_id', S.string())
           .prop('subject', S.string())
           .prop('body', S.string())
+          .prop('username', S.string())
           .prop('creation-date', S.string().format('date-time'))
       }
     }
@@ -119,7 +122,7 @@ module.exports = async function(fastify, opts) {
 
     return Object.assign({
       _id
-    }, request.body)
+    }, ticket)
   })
 }
 
