@@ -19,19 +19,20 @@ module.exports = async function (fastify, opts) {
       description: 'Create and login endopoints',
       body: S.object()
         .prop('username', S.string()
+          .maxLength(10)
           .description("The preferred username")
           .required())
         .prop('password', S.string()
           .description("The password")
           .required())
         .prop('fullName', S.string()
+          .maxLength(50)
           .description("The name of the user")
           .required()),
       response: {
         200: S.object()
           .prop('token', S.string()),
-        400: S.object()
-          .prop('message', S.string())
+        400: S.ref('#message')
       }
     }
   }, async function (request, reply) {
@@ -69,10 +70,8 @@ module.exports = async function (fastify, opts) {
       response: {
         200: S.object()
           .prop('token', S.string()),
-        404: S.object()
-          .prop('message', S.string()),
-        400: S.object()
-          .prop('message', S.string())
+        404: S.ref('#message'),
+        400: S.ref('#message')
       }
     }
   }, async function (request, reply) {

@@ -2,6 +2,10 @@
 
 const fp = require('fastify-plugin')
 const Swagger = require('fastify-swagger')
+const {
+  messageSchema,
+  ticketSchema
+} = require('../schema');
 
 module.exports = fp(async (fastify, opts) => {
   const swaggerOpts = {
@@ -23,10 +27,13 @@ module.exports = fp(async (fastify, opts) => {
       tags: [
         { name: 'tickets', description: 'tickets specifications' },
         { name: 'auth', description: 'Authentication' }
-      ]
+      ],
+      definitions: {
+        ticket: ticketSchema,
+        message: messageSchema
+      }
     },
     exposeRoute: true
   }
-
   fastify.register(Swagger, swaggerOpts)
 })

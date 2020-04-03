@@ -14,10 +14,8 @@ module.exports = async function(fastify, opts) {
         .description("The ticket id to delete")
         .required()),
       response: {
-        200: S.object()
-          .prop('message', S.string()),
-        404: S.object()
-          .prop('message', S.string())
+        200: S.ref('#message'),
+        404: S.ref('#message')
       }
     }
   }, async function (request, reply) {
@@ -41,15 +39,9 @@ module.exports = async function(fastify, opts) {
       description: 'Get all the tickets of the database',
       response: {
         200: S.array().items(
-          S.object()
-          .prop('_id', S.string())
-          .prop('subject', S.string())
-          .prop('body', S.string())
-          .prop('username', S.string())
-          .prop('creation-date', S.string().format('date-time'))
+          S.ref('#ticket')
         ),
-        404: S.object()
-          .prop('message', S.string())
+        404: S.ref('#message')
       }
     }
   }, async function (request, reply) {
@@ -69,14 +61,8 @@ module.exports = async function(fastify, opts) {
       params: S.object()
         .prop('id', S.string().required()),
       response: {
-        200: S.object()
-          .prop('_id', S.string())
-          .prop('subject', S.string())
-          .prop('body', S.string())
-          .prop('username', S.string())
-          .prop('creation-date', S.string().format('date-time')),
-        404: S.object()
-          .prop('message', S.string())
+        200: S.ref('#ticket'),
+        404: S.ref('#message')
       }
     }
   }, async function (request, reply) {
@@ -103,12 +89,7 @@ module.exports = async function(fastify, opts) {
         .prop('body', S.string().required())
         .prop('creation-date', S.string().format('date-time').required()),
       response: {
-        200: S.object()
-          .prop('_id', S.string())
-          .prop('subject', S.string())
-          .prop('body', S.string())
-          .prop('username', S.string())
-          .prop('creation-date', S.string().format('date-time'))
+        200: S.ref('#ticket')
       }
     }
   }, async function (request, reply) {
