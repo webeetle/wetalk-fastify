@@ -1,0 +1,35 @@
+{
+  "name": "tickets-service",
+  "version": "1.0.0",
+  "description": "Tickets microservice ",
+  "main": "server.js",
+  "scripts": {
+    "test": "tap test/**/*.test.js",
+    "start": "fastify-app run",
+    "dev": "fastify-app run -l info -P -w"
+  },
+  "keywords": [
+    "fastify",
+    "nodejs"
+  ],
+  "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "fastify": "^2.4.1",
+    "fastify-autoload": "^1.1.0",
+    "fastify-plugin": "^1.6.1",
+    "fluent-schema": "^0.10.0",
+    "is-docker": "^2.0.0",
+    "make-promises-safe": "^5.0.0",
+    "pino-colada": "^2.0.0",
+    "pump": "^3.0.0",
+    "resolve-from": "^5.0.0",
+    "yargs-parser": "^18.0.0"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "standard": "^14.0.0",
+    "tap": "^14.8.2"
+  }
+}
