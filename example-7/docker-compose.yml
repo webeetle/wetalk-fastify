@@ -71,7 +71,7 @@ services:
     - mongo-db
 
   ticket-service:
-    container_name: auth-service
+    container_name: ticket-service
     restart: always
     build: ./auth
     image: auth
@@ -86,4 +86,19 @@ services:
     links:
     - apm-server
     - mongo-db
-    
+
+  gateway:
+    container_name: gateway-service
+    restart: always
+    build: ./gateway
+    image: gateway
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"
+    environment:
+      - FASTIFY_PORT=3000
+    volumes:
+      - ./auth/:/usr/src/app
+      - /usr/src/app/node_modules
+    links:
+    - apm-server    

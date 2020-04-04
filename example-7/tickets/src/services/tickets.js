@@ -5,7 +5,7 @@ module.exports = async function(fastify, opts) {
   const ticketsCollection = fastify.mongo.db.collection('tickets')
   const { ObjectId } = fastify.mongo
 
-  fastify.delete('/ticket/:id', {
+  fastify.delete('/:id', {
     schema: {
       tags: ['tickets'],
       description: 'This method delete the ticket with specified id',
@@ -33,7 +33,7 @@ module.exports = async function(fastify, opts) {
     return { message: `Ticket ${id} deleted!` }
   })
 
-  fastify.get('/tickets', {
+  fastify.get('/', {
     schema: {
       tags: ['tickets'],
       description: 'Get all the tickets of the database',
@@ -54,7 +54,7 @@ module.exports = async function(fastify, opts) {
     return tickets
   })
 
-  fastify.get('/ticket/:id', {
+  fastify.get('/:id', {
     schema: {
       tags: ['tickets'],
       description: 'Get the ticket info with specified id',
@@ -80,7 +80,7 @@ module.exports = async function(fastify, opts) {
     return ticket
   })
 
-  fastify.post('/ticket', {
+  fastify.post('/', {
     schema: {
       tags: ['tickets'],
       description: 'Create a new ticket with the given information',
