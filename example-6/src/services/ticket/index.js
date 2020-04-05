@@ -33,7 +33,7 @@ module.exports = async function(fastify, opts) {
     return { message: `Ticket ${id} deleted!` }
   })
 
-  fastify.get('/tickets', {
+  fastify.get('/ticket', {
     schema: {
       tags: ['tickets'],
       description: 'Get all the tickets of the database',
