@@ -1,9 +1,6 @@
 const fastify = require('fastify')({ logger: true})
 
 fastify.register(require('./our-first-route'))
-fastify.decorate('utility', () => {
-  return { hello: 'World!' }
-})
 
 const startServer = async port => {
   try {
