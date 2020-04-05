@@ -6,8 +6,7 @@
   "scripts": {
     "test": "tap test/**/*.test.js",
     "start": "fastify-app run",
-    "dev": "NODE_OPTIONS=\"-r ./apm.js\" fastify-app run -l info -P -w -p 3001",
-    "mongo": "docker run -p 27017:27017 mongo:latest"
+    "dev": "NODE_OPTIONS=\"-r ./apm.js\" fastify-app run -l info -p 3001"
   },
   "keywords": [
     "fastify",

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tap test/**/*.test.js",
     "start": "fastify-app run",
-    "dev": "NODE_OPTIONS=\"-r ./apm.js\" fastify-app run -l info -P -w -p 3002"
+    "dev": "NODE_OPTIONS=\"-r ./apm.js\" fastify-app run -l info -p 3002"
   },
   "keywords": [
     "fastify",

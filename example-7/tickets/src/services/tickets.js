@@ -106,5 +106,3 @@ module.exports = async function(fastify, opts) {
     }, ticket)
   })
 }
-
-module.exports.autoPrefix = '/api'

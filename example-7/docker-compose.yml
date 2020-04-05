@@ -5,15 +5,15 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
     container_name: elasticsearch-wetalk
     environment:
-      - cluster.name=docker-cluster
-      - xpack.security.enabled=false
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     ulimits:
       memlock:
         soft: -1
         hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
     ports:
       - "9200:9200"
     healthcheck:
@@ -47,17 +47,35 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f" ,"http://apm-server:8200/"]
 
-  mongo-db: 
+  mongodb-wetalk:
     image: mongo:latest
     container_name: mongodb-wetalk
     ports:
       - "27017:27017"
+
+  gateway-service:
+    container_name: gateway-service
+    restart: always
+    build: ./gateway
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    environment:
+      - FASTIFY_PORT=3000
+    volumes:
+      - ./gateway/:/usr/src/app
+      - /usr/src/app/node_modules
+    links:
+      - apm-server
+      - ticket-service
+      - auth-service
   
   auth-service:
     container_name: auth-service
     restart: always
     build: ./auth
-    image: auth
     command: ["npm", "run", "dev"]
     ports:
       - "3001:3001"
@@ -68,37 +86,20 @@ services:
       - /usr/src/app/node_modules
     links:
     - apm-server
-    - mongo-db
+    - mongodb-wetalk
 
   ticket-service:
     container_name: ticket-service
     restart: always
-    build: ./auth
-    image: auth
+    build: ./tickets
     command: ["npm", "run", "dev"]
     ports:
       - "3002:3002"
     environment:
       - FASTIFY_PORT=3002
     volumes:
-      - ./auth/:/usr/src/app
+      - ./tickets/:/usr/src/app
       - /usr/src/app/node_modules
     links:
     - apm-server
-    - mongo-db
-
-  gateway:
-    container_name: gateway-service
-    restart: always
-    build: ./gateway
-    image: gateway
-    command: ["npm", "run", "dev"]
-    ports:
-      - "3000:3000"
-    environment:
-      - FASTIFY_PORT=3000
-    volumes:
-      - ./auth/:/usr/src/app
-      - /usr/src/app/node_modules
-    links:
-    - apm-server    
+    - mongodb-wetalk

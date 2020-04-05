@@ -1,13 +1,14 @@
 'use strict'
 
 const fp = require('fastify-plugin')
+const isDocker = require('is-docker')
 const MongoDB = require('fastify-mongodb')
 
 module.exports = fp(async (fastify, opts) => {
   let mongoOpts = Object.assign({}, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    url: process.env.MONGODB_URL || 'mongodb://localhost:27017/wetalk',
+    url: process.env.MONGODB_URL || `mongodb://${isDocker() ? 'mongodb-wetalk' : 'localhost'}:27017/wetalk`,
   }, opts.mongodb)
 
   if (process.env.MONGODB_USER) {
