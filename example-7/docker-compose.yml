@@ -52,6 +52,8 @@ services:
     container_name: mongodb-wetalk
     ports:
       - "27017:27017"
+    expose: 
+      - "27017"
 
   gateway-service:
     container_name: gateway-service
