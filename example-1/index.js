@@ -8,7 +8,7 @@ const fastify = new Fastify({
 })
 
 // Declare a route for our application
-fastify.get('/', async (req, res) => {
+fastify.get('/say-hello', async (req, res) => {
   return { hello: 'world' }
 })
 
