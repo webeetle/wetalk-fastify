@@ -1,4 +1,7 @@
-const fastify = require('fastify')({ 
+'use strict'
+
+const Fastify = require('fastify')
+const fastify = new Fastify({ 
   logger: {
     level: 'info'
   } 
