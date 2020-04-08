@@ -9,15 +9,6 @@ module.exports = fp(async (fastify, opts) => {
     useUnifiedTopology: true,
     url: process.env.MONGODB_URL || 'mongodb://localhost:27017/wetalk',
   }, opts.mongodb)
-
-  if (process.env.MONGODB_USER) {
-    mongoOpts = Object.assign(mongoOpts, {
-      auth: {
-        user: process.env.MONGODB_USER || '',
-        password: process.env.MONGODB_PASSWORD || ''
-      }
-    })
-  }
-
+  
   fastify.register(MongoDB, mongoOpts)
 })

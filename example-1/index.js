@@ -1,4 +1,8 @@
-const fastify = require('fastify')({ logger: true })
+const fastify = require('fastify')({ 
+  logger: {
+    level: 'info'
+  } 
+})
 
 // Declare a route for our application
 fastify.get('/', async (req, res) => {
