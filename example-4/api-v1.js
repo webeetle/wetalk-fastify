@@ -7,14 +7,14 @@ async function routes (fastify, options) {
     onRequest: async (request, reply) => {
       fastify.log.info("onRequest")
     },
+    preSerialization: async (request, reply) => {
+      fastify.log.info("preSerialization")
+    },
     preValidation: async (request, reply) => {
       fastify.log.info("preValidation")
     },
     preHandler: async (request, reply) => {
       fastify.log.info("preHandler")
-    },
-    preSerialization: async (request, reply) => {
-      fastify.log.info("preSerialization")
     },
     handler: async (request, reply) => {
       return { hello: 'world' }
