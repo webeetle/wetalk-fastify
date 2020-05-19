@@ -2,10 +2,6 @@
 
 const fp = require('fastify-plugin')
 const Swagger = require('fastify-swagger')
-const {
-  messageSchema,
-  ticketSchema
-} = require('../schema');
 
 module.exports = fp(async (fastify, opts) => {
   const swaggerOpts = {
@@ -29,8 +25,7 @@ module.exports = fp(async (fastify, opts) => {
         { name: 'auth', description: 'Authentication' }
       ],
       definitions: {
-        ticket: ticketSchema,
-        message: messageSchema
+        ...fastify.getSchemas()
       }
     },
     exposeRoute: true

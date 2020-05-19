@@ -4,6 +4,8 @@ const S = require('fluent-schema')
 module.exports = async function(fastify, opts) {
   const ticketsCollection = fastify.mongo.db.collection('tickets')
   const { ObjectId } = fastify.mongo
+  const ticketSchema = fastify.getSchemas()['#ticket'];
+  const messageSchema = fastify.getSchemas()['#message'];
 
   fastify.delete('/ticket/:id', {
     schema: {
@@ -14,8 +16,8 @@ module.exports = async function(fastify, opts) {
         .description("The ticket id to delete")
         .required()),
       response: {
-        200: S.ref('#message'),
-        404: S.ref('#message')
+        200: messageSchema,
+        404: messageSchema
       }
     }
   }, async function (request, reply) {
@@ -38,10 +40,11 @@ module.exports = async function(fastify, opts) {
       tags: ['tickets'],
       description: 'Get all the tickets of the database',
       response: {
-        200: S.array().items(
-          S.ref('#ticket')
-        ),
-        404: S.ref('#message')
+        200: {
+          type: 'array',
+          items: ticketSchema
+        },
+        404: messageSchema
       }
     }
   }, async function (request, reply) {
@@ -61,8 +64,8 @@ module.exports = async function(fastify, opts) {
       params: S.object()
         .prop('id', S.string().required()),
       response: {
-        200: S.ref('#ticket'),
-        404: S.ref('#message')
+        200: ticketSchema,
+        404: messageSchema
       }
     }
   }, async function (request, reply) {
@@ -89,7 +92,7 @@ module.exports = async function(fastify, opts) {
         .prop('body', S.string().required())
         .prop('creation-date', S.string().format('date-time').required()),
       response: {
-        200: S.ref('#ticket')
+        200: ticketSchema
       }
     }
   }, async function (request, reply) {
