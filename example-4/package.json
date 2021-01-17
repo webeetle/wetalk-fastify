@@ -9,7 +9,7 @@
   "author": "Davide D'Antonio <davide.dantonio@webeetle.com>",
   "license": "MIT",
   "dependencies": {
-    "fastify": "^2.13.0",
+    "fastify": "^2.15.1",
     "fluent-schema": "^0.10.0"
   }
 }
